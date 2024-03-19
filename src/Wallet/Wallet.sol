@@ -28,7 +28,7 @@ contract wallet {
         payable(msg.sender).transfer(wad);
     }
 
-    function update(address oldGabai, address newGabai) private onlyOwner{
+    function update(address oldGabai, address newGabai) public onlyOwner{
     //    require(owner == msg.sender, "Only the owner can update"); //only owner can update gabaaim
         require(gabaim[newGabai]==1,"the gabai is exist"); // check if gabbai exist in my hash
         gabaim[newGabai]=1;
