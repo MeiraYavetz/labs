@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.6.12 <0.9.0;
 
-contract wallet {
-    address payable private owner;
+contract Wallet {
+    address payable public owner;
 
     mapping(address => uint256) public gabaim;
 
@@ -25,6 +25,10 @@ contract wallet {
             owner == msg.sender || gabaim[msg.sender] == 1,
             "Only the owner and the gabaim allowed to withdraw Ether"
         );
+        /*require(
+            address(this).balance >= wad,
+            "there is no money"
+        );*/
         payable(msg.sender).transfer(wad);
     }
 
