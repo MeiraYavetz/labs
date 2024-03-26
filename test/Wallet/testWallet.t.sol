@@ -24,11 +24,10 @@ contract WalletTest is Test{
         assertEq(finalBalance, initialBalance + amount);
         vm.stopPrank();
     }
- function testAllowedWithdraw() external {
+    function testAllowedWithdraw() external {
 
         uint256 withdrawAmount = 50;
         address userAddress = 0xaC4E320Ed1235F185Bc6AC8856Ec7FEA7fF0310d; // address of allowed user
-        //address userAddress = vm.addr(12); // address of not allowed user
         vm.startPrank(userAddress); // send from random address
         
         uint256 initialBalance = address(W).balance; // the balance in the begining (before transfer)
@@ -39,7 +38,21 @@ contract WalletTest is Test{
         
         vm.stopPrank();
     }
-    
+
+    function testNotAllowedWithdraw() external {
+
+        uint256 withdrawAmount = 50; 
+        address userAddress = vm.addr(12); // address of not allowed user
+        vm.startPrank(userAddress); // send from random address
+        
+        uint256 initialBalance = address(W).balance; // the balance in the begining (before transfer)
+        vm.expectRevert();
+        W.withdraw(withdrawAmount);
+        uint256 finalBalance = address(W).balance; // the balance in the final (aftere transfer)
+        //assertEq(finalBalance, initialBalance - withdrawAmount);
+        
+        vm.stopPrank();
+    }
     function testUpdate() public{
         address oldGabai = 0xaC4E320Ed1235F185Bc6AC8856Ec7FEA7fF0310d;
         address newGabai = 0x7c0FA5571c4A1A67FD21Ed9209674868cC8dc86b;
