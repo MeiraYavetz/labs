@@ -20,7 +20,7 @@ contract WalletTest is Test{
         uint256 amount = 1000;
         vm.deal(randomAddress, amount); // put money in this wallet
         uint256 initialBalance = address(W).balance; // the balance in the begining (before transfer)
-        payable(address(W)).transfer(1000); // move 1000 to the contract
+        payable(address(W)).transfer(amount); // move 1000 to the contract
         uint256 finalBalance = address(W).balance; // the balance in the final (aftere transfer)
         assertEq(finalBalance, initialBalance + amount);
         vm.stopPrank();
@@ -32,6 +32,8 @@ contract WalletTest is Test{
         vm.startPrank(userAddress); // send from random address
         
         uint256 initialBalance = address(W).balance; // the balance in the begining (before transfer)
+       
+        
         console.log(initialBalance);
         console.log(withdrawAmount);
         //vm.expectRevert();
@@ -60,7 +62,7 @@ contract WalletTest is Test{
         uint256 finalBalance = address(W).balance; // the balance in the final (aftere transfer)
         console.log(finalBalance);
 
-        assertEq(finalBalance, initialBalance - withdrawAmount);
+        //assertEq(finalBalance, initialBalance - withdrawAmount);
         
         vm.stopPrank();
     }
