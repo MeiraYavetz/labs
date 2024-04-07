@@ -4,52 +4,79 @@ pragma solidity >=0.6.12 <0.9.0;
 import "forge-std/console.sol";
 import "../audit/approve.sol";
 
-contract Staking is ERC20 {
+contract Staking {
 
-    mapping(address=>mapping(uint256=>uint256)) public database;
+    struct User {        
+        uint256 date;
+        uint256 sum;
+    } 
+
+    mapping(address=> User[]) public database;
     uint256 date;
     uint256 poolBalance;
     uint256 poolsRich;
     uint256 percent;
     address owner;
-    
+    ERC20 erc;
+    address rich;
+
     constructor(){
-        date = 0;
+        date = block.timestamp;
         poolBalance = 0;
-        poolsRich = 1000000;
-        percent = 1 / 10;
-        owner = msg.sender;
+        poolsRich = 1000000000;
+        percent = 1000;
+        owner = payable(msg.sender);
+        rich = 0x7a3b914a1f0bD991BAf826F4fE9a47Bb9880d25f;
     }
 
     modifier onlyOwner(){
-        require(owner == msg.sender);
+        require(
+            owner == msg.sender 
+            );
+            _;
     }
 
     receive() external payable {}
 
-    function deposit() public{}
-
-    function withdraw(uint256 wad) external{
-        if(calculateDays()!= 0){
-
-        }
-    }
-
-    function calculateDays()public returns ( uint256){
-        for(uint256 i = 0; i<database[msg.sender].length(); i++)
+    function deposit() public{
+        for(uint256 i = 0; i < database[msg.sender].length; i++)
         {
-            database[msg.sender][];
-            if(date - 7 >= i)
-            {
-                
+            if(database[msg.sender][i].date == block.timestamp){
+                database[msg.sender][i].sum += msg.value;
             }
-            
+            else{
+                database[msg.sender][i].push({block.timestamp,msg.value });
+            }
         }
+        poolBalance += msg.value;
     }
-    function calculateSum(uint256 _date) public returns (uint256){
-        uint256 amount = database[msg.sender][_date];
-        uint256 rate = amount / poolBalance;
+
+    function withdraw(uint256 amount) external{
+        uint256 sum = 0;
+        uint256 bonus;
+        sum = calculateDays(amount);
+        if(sum != 0){
+            bonus = calculateSum(sum);
+            erc.transferFrom(rich,msg.sender,bonus);
+        }
+        erc.transfer(msg.sender,amount);
+        poolBalance -= amount;
+    }
+
+    function calculateDays(uint256 amount)public returns ( uint256){
+        uint256 sum = 0;
+        for(uint256 i = 0; i<database[msg.sender].length; i++)
+        {
+            if(date - 604800 >= database[msg.sender][i].date) //time of 7 days in seconds
+            {
+                sum += database[msg.sender][i].sum;
+            }
+        }
+        return amount < sum?amount:sum;
+    }
+
+    function calculateSum(uint256 sum) public returns (uint256){
+        uint256 rate = sum / poolBalance;
         return rate * (percent * poolsRich);
     }
-
 }

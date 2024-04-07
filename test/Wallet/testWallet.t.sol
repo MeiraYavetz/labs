@@ -47,7 +47,7 @@ contract WalletTest is Test{
         
         vm.stopPrank();
     }
-
+    
     function testNotAllowedWithdraw() external {
 
         uint256 withdrawAmount = 50; 
