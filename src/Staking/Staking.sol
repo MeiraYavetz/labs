@@ -2,7 +2,8 @@
 
 pragma solidity >=0.6.12 <0.9.0;
 import "forge-std/console.sol";
-import "../audit/approve.sol";
+// import "../audit/approve.sol";
+import "../../new_project/src/MyToken.sol";
 
 contract Staking {
 
@@ -17,7 +18,7 @@ contract Staking {
     uint256 poolsRich;
     uint256 percent;
     address owner;
-    ERC20 erc;
+    MyToken myToken;
     address rich;
 
     constructor(){
@@ -35,21 +36,22 @@ contract Staking {
             );
             _;
     }
-
-    receive() external payable {}
-
-    function deposit() public{
+    
+    modifier deposit(){
         for(uint256 i = 0; i < database[msg.sender].length; i++)
         {
             if(database[msg.sender][i].date == block.timestamp){
                 database[msg.sender][i].sum += msg.value;
             }
             else{
-                database[msg.sender][i].push({block.timestamp,msg.value });
+                database[msg.sender].push(User({ date: block.timestamp, sum: msg.value }));
             }
         }
         poolBalance += msg.value;
+        _;
     }
+
+    receive() external payable deposit{} 
 
     function withdraw(uint256 amount) external{
         uint256 sum = 0;
@@ -57,9 +59,9 @@ contract Staking {
         sum = calculateDays(amount);
         if(sum != 0){
             bonus = calculateSum(sum);
-            erc.transferFrom(rich,msg.sender,bonus);
+            myToken.transferFrom(rich,msg.sender,bonus);
         }
-        erc.transfer(msg.sender,amount);
+        myToken.transfer(msg.sender,amount);
         poolBalance -= amount;
     }
 
