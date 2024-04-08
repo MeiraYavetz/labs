@@ -15,15 +15,11 @@ contract WalletTest is Test{
         payable(address(W)).transfer(1000); // move 1000 to the contract
     }
     function testReceive() public {
-        randomAddress = vm.addr(1234); // create random address
-        vm.startPrank(randomAddress); // send from random address
         uint256 amount = 1000;
-        vmaddress.deal(randomAddress, amount); // put money in this wallet
         uint256 initialBalance = address(W).balance; // the balance in the begining (before transfer)
         payable(address(W)).transfer(amount); // move 1000 to the contract
         uint256 finalBalance = address(W).balance; // the balance in the final (aftere transfer)
         assertEq(finalBalance, initialBalance + amount);
-        vm.stopPrank();
     }
     function testAllowedWithdraw() external {
 

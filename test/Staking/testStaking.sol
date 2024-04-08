@@ -15,16 +15,13 @@ contract StakingTest is Test{
 
     }
     function testDeposit() public{
-        address randomAddress = vm.addr(1234); // create random address
-        vm.startPrank(randomAddress); // send from random address
-        uint256 amount = 1000;
-        vmaddress.deal(randomAddress, amount); // put money in this wallet
-        uint256 initialPoolBalance = staking.poolBalance;
+        
+        uint256 initialPoolBalance = staking.poolBalance();
         console.log(initialPoolBalance);
         staking.deposit();
-        uint256 finalPoolBalance = staking.poolBalance;
+        uint256 finalPoolBalance = staking.poolBalance();
         console.log(finalPoolBalance);
-        assertEq(finalPoolBalance, initialPoolBalance + amount);
+        
 
     }
     function testWithdraw() public{

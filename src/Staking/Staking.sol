@@ -14,7 +14,7 @@ contract Staking {
 
     mapping(address=> User[]) public database;
     uint256 date;
-    uint256 poolBalance;
+    uint256 public poolBalance ;
     uint256 poolsRich;
     uint256 percent;
     address owner;
@@ -39,7 +39,7 @@ contract Staking {
             _;
     }
     //function
-    modifier deposit(){
+    function deposit() external payable{
         for(uint256 i = 0; i < database[msg.sender].length; i++)
         {
             if(database[msg.sender][i].date == block.timestamp){
@@ -50,10 +50,10 @@ contract Staking {
             }
         }
         poolBalance += msg.value;
-        _;
+        
     }
 
-    receive() external payable deposit{} 
+    // receive() external payable deposit{} 
 
     function withdraw(uint256 amount) external{
         uint256 sum = 0;

@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 
 contract MyToken is ERC20, ERC20Permit {
     constructor() ERC20("MyToken", "MTK") ERC20Permit("MyToken") {}
-    function mint(address add, uint a) public {
-        _mint(add, a);
+    function mint( uint a) public {
+        _mint(address(this), a);
     }
 }
