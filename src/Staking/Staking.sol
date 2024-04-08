@@ -24,10 +24,12 @@ contract Staking {
     constructor(){
         date = block.timestamp;
         poolBalance = 0;
-        poolsRich = 1000000000;
+        // poolsRich = 1000000000;
         percent = 1000;
         owner = payable(msg.sender);
         rich = 0x7a3b914a1f0bD991BAf826F4fE9a47Bb9880d25f;
+        myToken = new MyToken();
+        myToken.mint(10**6);
     }
 
     modifier onlyOwner(){
@@ -36,7 +38,7 @@ contract Staking {
             );
             _;
     }
-    
+    //function
     modifier deposit(){
         for(uint256 i = 0; i < database[msg.sender].length; i++)
         {
