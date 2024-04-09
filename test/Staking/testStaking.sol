@@ -15,16 +15,18 @@ contract StakingTest is Test{
 
     }
     function testDeposit() public{
-        
         uint256 initialPoolBalance = staking.poolBalance();
         console.log(initialPoolBalance);
-        staking.deposit();
+        staking.deposit(1000);
         uint256 finalPoolBalance = staking.poolBalance();
         console.log(finalPoolBalance);
+        console.log(block.timestamp,"time");
         
-
     }
     function testWithdraw() public{
-
+        for(uint256 i=0;i<1000;i++)
+        {
+            testDeposit();
+        }
     }
 }

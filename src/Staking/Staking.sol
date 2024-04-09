@@ -39,18 +39,18 @@ contract Staking {
             _;
     }
     //function
-    function deposit() external payable{
+    function deposit(uint256 amount) external payable{
         for(uint256 i = 0; i < database[msg.sender].length; i++)
         {
             if(database[msg.sender][i].date == block.timestamp){
-                database[msg.sender][i].sum += msg.value;
+                database[msg.sender][i].sum += amount;
             }
             else{
-                database[msg.sender].push(User({ date: block.timestamp, sum: msg.value }));
+                database[msg.sender].push(User({ date: block.timestamp, sum: amount }));
             }
         }
-        poolBalance += msg.value;
-        
+        myToken.transferFrom();
+        poolBalance += amount;
     }
 
     // receive() external payable deposit{} 
@@ -59,12 +59,11 @@ contract Staking {
         uint256 sum = 0;
         uint256 bonus;
         sum = calculateDays(amount);
-        if(sum != 0){
-            bonus = calculateSum(sum);
-            myToken.transferFrom(rich,msg.sender,bonus);
-        }
+        require(sum != 0,"you can withdraw your money");
+        bonus = calculateSum(sum);
+        myToken.transferFrom(rich,msg.sender,bonus);
         myToken.transfer(msg.sender,amount);
-        poolBalance -= amount;
+        poolBalance -= amount; 
     }
 
     function calculateDays(uint256 amount)public returns ( uint256){
@@ -76,7 +75,9 @@ contract Staking {
                 sum += database[msg.sender][i].sum;
             }
         }
-        return amount < sum?amount:sum;
+        if(sum < amount)
+            return 0;
+        return amount;
     }
 
     function calculateSum(uint256 sum) public returns (uint256){
