@@ -28,12 +28,13 @@ contract MasterChefStakingTest is Test{
 
     function testWithdraw1() public{
         console.log(stakingToken.balanceOf(user1), " balance of user1");
+        console.log( user1," address of user1");
         vm.startPrank(user1);
         vm.warp(block.timestamp + 2);
 
         uint256 amount = 100;
 
-        stakingRewards.stake(amount);
+        stakingRewards.stake(100);
         console.log(stakingToken.balanceOf(user1), "stakingToken");
         stakingRewards.withdraw(100);
         console.log(stakingToken.balanceOf(user1), "stakingToken");

@@ -3,7 +3,7 @@
 // Code is a stripped down version of Synthetix
 
 pragma solidity ^0.8.20;
-import "@hack/like/IERC20.sol";
+import "../like/IERC20.sol";
 import "forge-std/console.sol";
 
 
@@ -56,8 +56,10 @@ contract StakingRewards {
     }
     function stake(uint256 amount) external updateReward(msg.sender) {
         require(amount > 0, "amount = 0");
+        console.log(stakingToken.balanceOf(msg.sender));
         stakingToken.transferFrom(msg.sender, address(this), amount);
         balances[msg.sender] += amount;
+
         staked += amount;
     }
     function withdraw(uint256 amount) external updateReward(msg.sender) {
