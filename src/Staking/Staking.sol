@@ -2,9 +2,8 @@
 
 pragma solidity >=0.6.12 <0.9.0;
 import "forge-std/console.sol";
-// import "../audit/approve.sol";
-import "../../new_project/src/MyToken.sol";
-
+import "../audit/approve.sol";
+import "./MyToken.sol";
 contract Staking {
 
     struct User {        
@@ -49,7 +48,7 @@ contract Staking {
                 database[msg.sender].push(User({ date: block.timestamp, sum: amount }));
             }
         }
-        myToken.transferFrom();
+       // myToken.transferFrom();
         poolBalance += amount;
     }
 
@@ -66,7 +65,7 @@ contract Staking {
         poolBalance -= amount; 
     }
 
-    function calculateDays(uint256 amount)public returns ( uint256){
+    function calculateDays(uint256 amount)public view returns ( uint256){
         uint256 sum = 0;
         for(uint256 i = 0; i<database[msg.sender].length; i++)
         {
@@ -80,7 +79,7 @@ contract Staking {
         return amount;
     }
 
-    function calculateSum(uint256 sum) public returns (uint256){
+    function calculateSum(uint256 sum) public view returns (uint256){
         uint256 rate = sum / poolBalance;
         return rate * (percent * poolsRich);
     }
