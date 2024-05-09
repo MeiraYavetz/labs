@@ -25,6 +25,7 @@ contract Amm1Test is Test{
     }
 
     function testTradeXtoY() public {
+        console.log("address(this) of test-amm1",address(this));
         console.log("balance of test-amm1",x.balanceOf(address(this)));
         uint256 amountX = 20;
         uint amountY = amm1.tradeXToY(amountX);
