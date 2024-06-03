@@ -62,6 +62,7 @@ contract Amm1{
         require(amount > 0, "amount is illegal");
         // x.approve(address(this),100);
         // x.approve(msg.sender,100);
+        console.log("msg.sender in amm1",msg.sender);
         console.log(msg.sender, "msg.sender"); 
         console.log(x.balanceOf(msg.sender), "balanceOf.msg.sender");  
         x.transferFrom(msg.sender,address(this),amount);
