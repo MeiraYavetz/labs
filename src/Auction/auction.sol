@@ -8,7 +8,7 @@ import '../../lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol';
 contract Auction {
     struct bidder{
         uint sum;
-        bool flag = true;
+        bool flag;
         Seller seller;
     }
     struct Seller{
@@ -38,6 +38,7 @@ contract Auction {
     }
 //פונקציה למשתמש להציע הצעה
     function addBid(uint _sum, Seller seller) public payable checkTime(seller){
+        
         while(!bidders[stack[stack.length()-1]].flag){
             stack.pop();
         }
@@ -76,6 +77,6 @@ contract Auction {
         returnMoney(seller);
 
     }
-
+flag = true
 
 }
