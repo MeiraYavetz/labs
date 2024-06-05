@@ -4,7 +4,7 @@
 
 pragma solidity ^0.8.20;
 import "../like/IERC20.sol";
-import "forge-std/console.sol";
+//import "forge-std/console.sol";
 
 
 contract StakingRewards {
@@ -24,7 +24,7 @@ contract StakingRewards {
         owner = msg.sender;
         stakingToken = IERC20(st);
         rewardsToken = IERC20(rt);
-        console.log(address(this), "address of staking");
+        //console.log(address(this), "address of staking");
     }
     modifier onlyOwner() {
         require(msg.sender == owner, "not authorized");
@@ -56,7 +56,7 @@ contract StakingRewards {
     }
     function stake(uint256 amount) external updateReward(msg.sender) {
         require(amount > 0, "amount = 0");
-        console.log(stakingToken.balanceOf(msg.sender));
+        //console.log(stakingToken.balanceOf(msg.sender));
         stakingToken.transferFrom(msg.sender, address(this), amount);
         balances[msg.sender] += amount;
 

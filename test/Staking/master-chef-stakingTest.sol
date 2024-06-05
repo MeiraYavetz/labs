@@ -5,16 +5,16 @@ import "foundry-huff/HuffDeployer.sol";
 import "forge-std/Test.sol";
 import "../../src/Staking/master-chef-staking.sol";
 import "../../src/audit/approve.sol";
-import "../../src/Staking/MyToken.sol";
+import "../../src/Staking/MyToken2.sol";
 contract MasterChefStakingTest is Test{
         StakingRewards public stakingRewards;
-        MyToken public stakingToken;
-        MyToken public rewardsToken;
+        MyToken2 public stakingToken;
+        MyToken2 public rewardsToken;
         address user1 = vm.addr(1); 
 
     function setUp() public{
-        stakingToken = new MyToken();
-        rewardsToken = new MyToken();
+        stakingToken = new MyToken2();
+        rewardsToken = new MyToken2();
         stakingRewards = new StakingRewards(address(stakingToken),address(rewardsToken));
 
         stakingRewards.setRewardsDuration(7 days);

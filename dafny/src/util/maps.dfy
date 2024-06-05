@@ -1,6 +1,4 @@
 
-
-
 module Maps {
     datatype mapping<S(==),T(==)> = Map(data:map<S,T>, default: T) {
         function Get(from: S) : (r:T)

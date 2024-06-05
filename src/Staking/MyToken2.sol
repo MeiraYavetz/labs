@@ -1,7 +1,9 @@
+// SPDX-License-Identifier: MIT
+
 pragma solidity ^0.8.20;
 
-import "forge-std/console.sol";
-import "../like/IERC20.sol" ;
+
+import "../like/IERC20.sol";
 
 
 contract MyToken2 is IERC20{
@@ -27,7 +29,7 @@ contract MyToken2 is IERC20{
     }
 
     function transferFrom(address from, address to, uint256 amount) external returns (bool) {
-        console.log("transferFrom" , msg.sender);
+        //console.log("transferFrom" , msg.sender);
         allowance[from][msg.sender] -= amount;
         balanceOf[from] -= amount;
         balanceOf[to] += amount;

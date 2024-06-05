@@ -3,7 +3,7 @@
 pragma solidity >=0.6.12 <0.9.0;
 import "forge-std/console.sol";
 import "../audit/approve.sol";
-import "./MyToken.sol";
+import "./MyToken2.sol";
 contract Staking {
 
     struct User {        
@@ -17,7 +17,7 @@ contract Staking {
     uint256 poolsRich;
     uint256 percent;
     address owner;
-    MyToken myToken;
+    MyToken2 myToken;
     address rich;
 
     constructor(){
@@ -27,7 +27,7 @@ contract Staking {
         percent = 1000;
         owner = payable(msg.sender);
         rich = 0x7a3b914a1f0bD991BAf826F4fE9a47Bb9880d25f;
-        myToken = new MyToken();
+        myToken = new MyToken2();
         myToken.mint(10**6);
     }
 
