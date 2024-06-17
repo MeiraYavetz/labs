@@ -12,8 +12,11 @@ contract Todos{
 
     Todo[] public todos;
 
-    function create(string calldata _text) public{
-        Todos.push(Todo(_text,false));
+    function create(string calldata _text) public {
+        todos.push(Todo({
+            text: _text,
+            completed: false
+        }));
     }
     function get(uint256 index) public view returns(string memory text, bool completed){
         return (todos[index].text,todos[index].completed);

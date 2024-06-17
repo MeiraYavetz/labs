@@ -3,7 +3,7 @@
 pragma solidity >=0.6.12 <0.9.0;
 import "forge-std/console.sol";
 import "../audit/approve.sol";
-import "./MyToken2.sol";
+import "../tokens/MyToken2.sol";
 contract Staking {
 
     struct User {        

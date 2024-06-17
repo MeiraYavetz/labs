@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 
-import "../like/IERC20.sol";
+import "./IERC20.sol";
 
 
 contract MyToken2 is IERC20{

@@ -3,9 +3,9 @@ pragma solidity ^0.8.15;
 import "forge-std/console.sol";
 import "foundry-huff/HuffDeployer.sol";
 import "forge-std/Test.sol";
-import "../../src/Staking/master-chef-staking.sol";
+import "../../src/staking/stakingRewards.sol";
 import "../../src/audit/approve.sol";
-import "../../src/Staking/MyToken2.sol";
+import "../../src/tokens/MyToken2.sol";
 contract MasterChefStakingTest is Test{
         StakingRewards public stakingRewards;
         MyToken2 public stakingToken;

@@ -5,8 +5,8 @@ pragma solidity ^0.8.20;
 import "forge-std/console.sol";
 import "forge-std/Test.sol";
 
-import "../../src/Staking/MyToken.sol";
-import "../../src/AMM/CP.sol";
+import "../../src/tokens/MyToken.sol";
+import "../../src/amm/CP.sol";
 
 contract CPTest is Test{
 

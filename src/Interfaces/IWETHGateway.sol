@@ -1,6 +1,6 @@
-import "../interfaces/IERC20.sol";
+import "./IERC20.sol";
 
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.20;
 
 interface IWETHGateway {
     function depositETH(address lendingPool, address onBehalfOf, uint16 referralCode) external payable;

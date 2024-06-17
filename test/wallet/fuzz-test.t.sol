@@ -5,7 +5,7 @@ import "foundry-huff/HuffDeployer.sol";
 import "forge-std/Test.sol";
 import "forge-std/console.sol";
 
-import "../../../src/Wallet/Wallet.sol";
+import "../../../src/wallet/wallet.sol";
 
 contract FuzzTest is Test{
 
